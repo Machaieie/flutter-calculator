@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_icon/flutter_icon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Calculadora extends StatefulWidget {
   const Calculadora({super.key});
@@ -10,86 +10,70 @@ class Calculadora extends StatefulWidget {
 
 class _CalculadoraState extends State<Calculadora> {
   // metodo de botoes
-  Widget botoesNumericos(String btntxt, Color btncolor, Color txtcolor) {
+
+  Widget botaoDelete(String btntxt, Color btncolor, Color txtcolor) {
     return Container(
       child: ElevatedButton(
-        
-        onPressed: () {
-          //TODO adiciobar evento quando o botao for clicado
-        },
-        child: Text(btntxt,
-        style: TextStyle(fontSize: 35,
-        color: txtcolor,
-        ),
-        ),
-        style: ElevatedButton.styleFrom(
-          shape: CircleBorder(),
-          backgroundColor: const Color.fromARGB(179, 85, 85, 85),
-          padding: EdgeInsets.all(12),
-        ),
-      ),
+      onPressed: () {},
+      child: FaIcon(FontAwesomeIcons.deleteLeft),
+      style: ElevatedButton.styleFrom(
+      shape: CircleBorder(),
+      padding: EdgeInsets.all(20),
+      backgroundColor: Colors.red, // <-- Button color
+      foregroundColor: Colors.white, // <-- Splash color
+  ),
+)
     );
   }
 
-  Widget botaoExcluir(String btntxt, Color btncolor, Color txtcolor) {
+  Widget botoesNumericos(String btntxt, Color btncolor, Color txtcolor) {
     return Container(
       child: ElevatedButton(
-        
         onPressed: () {
           //TODO adiciobar evento quando o botao for clicado
         },
-        child: Text(btntxt,
-        style: TextStyle(fontSize: 35,
-        color: txtcolor,
-        ),
+        child: Text(
+          btntxt,
+          style: TextStyle(
+            fontSize: 35,
+            color: txtcolor,
+          ),
         ),
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
-          
           backgroundColor: const Color.fromARGB(179, 85, 85, 85),
           padding: EdgeInsets.all(12),
-          
         ),
       ),
-      
     );
   }
 
   Widget bottoesPequenos(String btntxt, Color btncolor, Color txtcolor) {
     return Container(
       child: ElevatedButton(
-        onPressed: (){
-          //TODO adicionar evento quando o botao for clicado
-
-        }, 
-        child: Text(btntxt,
-        style: TextStyle(
-          fontSize: 28,
-        color: txtcolor
-        ),
-        ),
-        style:  ElevatedButton.styleFrom(
-          shape: StadiumBorder(),
-          backgroundColor: Colors.black87
-        )
-      ),
+          onPressed: () {
+            //TODO adicionar evento quando o botao for clicado
+          },
+          child: Text(
+            btntxt,
+            style: TextStyle(fontSize: 28, color: txtcolor),
+          ),
+          style: ElevatedButton.styleFrom(
+              shape: StadiumBorder(), backgroundColor: Colors.black87)),
     );
   }
 
-  Widget botoesOperacionais (String btntxt, Color btncolor, Color txtcolor){
+  Widget botoesOperacionais(String btntxt, Color btncolor, Color txtcolor) {
     return Container(
       child: ElevatedButton(
-       
-        onPressed: (){
+        onPressed: () {
           //TODO adicionar evento quando o botao for clicado
-
-        }, 
-        child: Text(btntxt, style: TextStyle(
-          fontSize: 28,
-          color: txtcolor
-        ),),
-         style:  ElevatedButton.styleFrom(
-          
+        },
+        child: Text(
+          btntxt,
+          style: TextStyle(fontSize: 28, color: txtcolor),
+        ),
+        style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
           backgroundColor: Colors.lightBlue,
           padding: EdgeInsets.all(16),
@@ -97,7 +81,25 @@ class _CalculadoraState extends State<Calculadora> {
       ),
     );
   }
-  
+
+  Widget botaoLimpar(String btntxt, Color btncolor, Color txtcolor) {
+    return Container(
+      child: ElevatedButton(
+        onPressed: () {
+          //TODO adicionar evento quando o botao for clicado
+        },
+        child: Text(
+          btntxt,
+          style: TextStyle(fontSize: 28, color: txtcolor),
+        ),
+        style: ElevatedButton.styleFrom(
+          shape: CircleBorder(),
+          backgroundColor: Colors.green,
+          padding: EdgeInsets.all(16),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +118,7 @@ class _CalculadoraState extends State<Calculadora> {
                   child: Text(
                     "0",
                     textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.white, fontSize: 100),
+                    style: TextStyle(color: Colors.white, fontSize: 60),
                   ),
                 ),
               ]),
@@ -132,7 +134,7 @@ class _CalculadoraState extends State<Calculadora> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  botoesOperacionais("AC", Colors.grey, Colors.white),
+                  botaoLimpar("AC", Colors.grey, Colors.white),
                   botoesOperacionais("( )", Colors.grey, Colors.white),
                   botoesOperacionais("%", Colors.grey, Colors.white),
                   botoesOperacionais("÷", Colors.grey, Colors.white),
@@ -154,7 +156,6 @@ class _CalculadoraState extends State<Calculadora> {
                   botoesNumericos("5", Colors.grey, Colors.white),
                   botoesNumericos("6", Colors.grey, Colors.white),
                   botoesOperacionais("-", Colors.grey, Colors.white),
-                  
                 ],
               ),
               Row(
@@ -171,15 +172,7 @@ class _CalculadoraState extends State<Calculadora> {
                 children: [
                   botoesNumericos("0", Colors.grey, Colors.white),
                   botoesNumericos(".", Colors.grey, Colors.white),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(120),
-                    child: SizedBox(
-                      child: ElevatedButton.icon(
-                        onPressed: (){}, 
-                        icon: const Icon(Icons.remove_road), 
-                        label: Text('', style: TextStyle(fontSize: 25),))
-                        ),
-                  ),
+                  botaoDelete("", Colors.grey, Colors.white),
                   botoesOperacionais("=", Colors.grey, Colors.white),
                 ],
               )
