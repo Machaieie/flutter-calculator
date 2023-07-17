@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
 class Calculadora extends StatefulWidget {
   const Calculadora({super.key});
 
@@ -9,12 +10,26 @@ class Calculadora extends StatefulWidget {
 }
 
 class _CalculadoraState extends State<Calculadora> {
+   String _displayValue = '';
+  double _operand1 = 0;
+  double _operand2 = 0;
+  String _operation = '';
+
+  @override
+  void initState(){
+    // TODO: Estado iinicial da aplicacão
+    super.initState();
+    
+
+  }
   // metodo de botoes
 
   Widget botaoDelete(String btntxt, Color btncolor, Color txtcolor) {
     return Container(
         child: ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        _deleteDigit();
+    },
       child: FaIcon(FontAwesomeIcons.deleteLeft),
       style: ElevatedButton.styleFrom(
         shape: CircleBorder(),
@@ -30,7 +45,7 @@ class _CalculadoraState extends State<Calculadora> {
       child: ElevatedButton(
         onPressed: () {
           //TODO adiciobar evento quando o botao for clicado
-          calculation('0');
+          onButtonPressed(btntxt);
         },
         child: Text(
           btntxt,
@@ -53,13 +68,14 @@ class _CalculadoraState extends State<Calculadora> {
       child: ElevatedButton(
           onPressed: () {
             //TODO adicionar evento quando o botao for clicado
+            onButtonPressed(btntxt);
           },
           child: Text(
             btntxt,
             style: TextStyle(fontSize: 28, color: txtcolor),
           ),
           style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(), backgroundColor: Colors.black87)),
+              shape: StadiumBorder(), backgroundColor: Color.fromARGB(255, 88, 121, 255))),
     );
   }
 
@@ -68,7 +84,7 @@ class _CalculadoraState extends State<Calculadora> {
       child: ElevatedButton(
         onPressed: () {
           //TODO: adicionar evento quando o botao for clicado
-           calculation('0');
+           onButtonPressed(btntxt);
         },
         child: Text(
           btntxt,
@@ -76,7 +92,7 @@ class _CalculadoraState extends State<Calculadora> {
         ),
         style: ElevatedButton.styleFrom(
           shape: CircleBorder(),
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: Colors.orangeAccent,
           padding: EdgeInsets.all(16),
         ),
       ),
@@ -88,6 +104,7 @@ class _CalculadoraState extends State<Calculadora> {
       child: ElevatedButton(
         onPressed: () {
           //TODO adicionar evento quando o botao for clicado
+         _clearScreen();
         },
         child: Text(
           btntxt,
@@ -120,10 +137,16 @@ class _CalculadoraState extends State<Calculadora> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: Text(
-                            "$text",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.white, fontSize: 60),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(_displayValue,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35
+                                  ),),
+
+                              
+                          
                           ),
                         ),
                       ]),
@@ -177,119 +200,72 @@ class _CalculadoraState extends State<Calculadora> {
                     children: <Widget>[
                       botoesNumericos("0", Colors.grey, Colors.white),
                       botoesNumericos(".", Colors.grey, Colors.white),
-                      botaoDelete("", Colors.grey, Colors.white),
+                      botaoDelete("del", Colors.grey, Colors.white),
                       botoesOperacionais("=", Colors.grey, Colors.white),
                     ],
                   )
                 ])));
   }
-
+void _deleteDigit() {
+  setState(() {
+    if (_displayValue.isNotEmpty) {
+      _displayValue = _displayValue.substring(0, _displayValue.length - 1);
+    }
+  });
+}
   // Logica da calculadora
   // calculos
-  dynamic text = '0';
-  double numOne = 0;
-  double numTwo = 0;
-
-  dynamic result = '';
-  dynamic finalResult = '';
-  dynamic opr = '';
-  dynamic preOpr = '';
-
-  void calculation(btnText) {
-    if (btnText == 'AC') {
-      text = '0';
-      numOne = 0;
-      numTwo = 0;
-      result = '';
-      finalResult = '0';
-      opr = '';
-      preOpr = '';
-    } else if (opr == '=' && btnText == '=') {
-      if (preOpr == '+') {
-        finalResult = add();
-      } else if (preOpr == '-') {
-        finalResult = sub();
-      } else if (preOpr == 'x') {
-        finalResult = mul();
-      } else if (preOpr == '/') {
-        finalResult = div();
-      }
-    } else if (btnText == '+' ||
-        btnText == '-' ||
-        btnText == 'x' ||
-        btnText == '/' ||
-        btnText == '=') {
-      if (numOne == 0) {
-        numOne = double.parse(result);
-      } else {
-        numTwo = double.parse(result);
-      }
-
-      if (opr == '+') {
-        finalResult = add();
-      } else if (opr == '-') {
-        finalResult = sub();
-      } else if (opr == 'x') {
-        finalResult = mul();
-      } else if (opr == '/') {
-        finalResult = div();
-      }
-      preOpr = opr;
-      opr = btnText;
-      result = '';
-    } else if (btnText == '%') {
-      result = numOne / 100;
-      finalResult = doesContainDecimal(result);
-    } else if (btnText == '.') {
-      if (!result.toString().contains('.')) {
-        result = result.toString() + '.';
-      }
-      finalResult = result;
-    } else if (btnText == '+/-') {
-      result.toString().startsWith('-')
-          ? result = result.toString().substring(1)
-          : result = '-' + result.toString();
-      finalResult = result;
-    } else {
-      result = result + btnText;
-      finalResult = result;
-    }
-
+ void onButtonPressed(String btntxt) {
     setState(() {
-      text = finalResult;
+      if (btntxt == 'C') {
+        _clearScreen();
+      } else if (btntxt == '+' || btntxt == '-' || btntxt == 'x' || btntxt == '÷') {
+        _operation = btntxt;
+        _operand1 = double.parse(_displayValue);
+        _displayValue = '';
+      } else if (btntxt == '=') {
+        _operand2 = double.parse(_displayValue);
+        _displayValue = _calculate()!;
+        _operation = '';
+        _operand1 = 0;
+        _operand2 = 0;
+      } else {
+        _displayValue += btntxt;
+      }
     });
   }
 
-  String add() {
-    result = (numOne + numTwo).toString();
-    numOne = double.parse(result);
-    return doesContainDecimal(result);
-  }
+void _clearScreen() {
+  setState(() {
+   _displayValue = '';
+      _operand1 = 0;
+      _operand2 = 0;
+      _operation = '';
+  });
+}
 
-  String sub() {
-    result = (numOne - numTwo).toString();
-    numOne = double.parse(result);
-    return doesContainDecimal(result);
-  }
-
-  String mul() {
-    result = (numOne * numTwo).toString();
-    numOne = double.parse(result);
-    return doesContainDecimal(result);
-  }
-
-  String div() {
-    result = (numOne / numTwo).toString();
-    numOne = double.parse(result);
-    return doesContainDecimal(result);
-  }
-
-  String doesContainDecimal(dynamic result) {
-    if (result.toString().contains('.')) {
-      List<String> splitDecimal = result.toString().split('.');
-      if (!(int.parse(splitDecimal[1]) > 0))
-        return result = splitDecimal[0].toString();
+String? _calculate() {
+    if (_displayValue.isNotEmpty && _operation.isNotEmpty) {
+    double operand2 = double.parse(_displayValue);
+    double result = 0;
+    switch (_operation) {
+      case '+':
+        result = _operand1 + operand2;
+        break;
+      case '-':
+        result = _operand1 - operand2;
+        break;
+      case '*':
+        result = _operand1 * operand2;
+        break;
+      case '/':
+        result = _operand1 / operand2;
+        break;
     }
-    return result;
+    _displayValue = result.toString();
+    _operand1 = result;
   }
+  _operation = '';
+  
+}
 }
