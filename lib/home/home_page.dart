@@ -26,114 +26,111 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text('HomePage'),
+          title: const Text('Calculadora'),
           backgroundColor: Colors.black,
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(horizontal: 5),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-             Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * .2,
-              child:  SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 300,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.yellow
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * .2,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Container(
+                        //TODO Calculate Screen
+                        child: Text(
+                          _displayValue,
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        ),
                       ),
-                    ), 
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 300,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.red
-                      ),
-                    ),  
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 300,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.pink
-                      ),
-                    ), 
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 300,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.blue
-                      ),
-                    ), 
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      width: 300,
-                      height: 100,
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.red
-                      ),
-                    ), 
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-             Container(
-              width: MediaQuery.of(context).size.width ,
-              height: MediaQuery.of(context).size.height *.6,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                         color: Colors.orange,
-                          width: 300,
-                          height: 120,
-                          child: Text("Texto"),
-                        ), 
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                         color: Colors.pink,
-                          width: 300,
-                          height: 120,
-                          child: Text("Texto"),
-                        ), 
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                         color: Colors.blue,
-                          width: 300,
-                          height: 115,
-                          child: Text("Texto"),
-                        ), 
-                    ],
-                  ),
-                  
-                  
-
-                ],
-              ),
-             ) 
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * .6,
+                child: Column(
+                  children: <Widget>[
+                    // TODO Buttons
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        smallButtons("√", Colors.black, Colors.white),
+                        smallButtons("π", Colors.black, Colors.white),
+                        smallButtons("^", Colors.black, Colors.white),
+                        smallButtons("!", Colors.black, Colors.white),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        clearButton("AC"),
+                        Buttons("ln", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("%", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("÷", Colors.orange, Colors.white),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Buttons("7", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("8", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("9", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("x", Colors.orange, Colors.white),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Buttons("4", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("5", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("6", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("-", Colors.orange, Colors.white),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Buttons("1", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("2", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("3", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons("+", Colors.orange, Colors.white),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Buttons("0", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        Buttons(".", const Color.fromARGB(221, 39, 39, 39),
+                            Colors.white),
+                        BackSpace("del", Colors.red, Colors.white),
+                        Buttons("=", Colors.orange, Colors.white),
+                      ],
+                    )
+                  ],
+                ),
+              )
             ],
           ),
-          )
-      );
+        ));
   }
 
   Widget Buttons(String btntxt, Color btncolor, Color txtcolor) {
@@ -144,12 +141,49 @@ class _HomePageState extends State<HomePage> {
           },
           child: Text(
             btntxt,
-            style: TextStyle(fontSize: 35, color: txtcolor),
+            style: TextStyle(fontSize: 32, color: txtcolor),
           ),
           style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
-              backgroundColor: Color.fromARGB(255, 88, 121, 255))),
+            shape: CircleBorder(),
+            backgroundColor: btncolor,
+            padding: EdgeInsets.all(10),
+          )),
     );
+  }
+
+  Widget smallButtons(String btntxt, Color btncolor, Color txtcolor) {
+    return Container(
+      child: ElevatedButton(
+          onPressed: () {
+            //TODO adicionar evento quando o botao for clicado
+            onButtonPressed( btntxt);
+          },
+          child: Text(
+            btntxt,
+            style: TextStyle(fontSize: 25, color: txtcolor),
+          ),
+          style: ElevatedButton.styleFrom(
+            shape: CircleBorder(),
+            backgroundColor: btncolor,
+            padding: EdgeInsets.all(10),
+          )),
+    );
+  }
+
+  Widget BackSpace(String btntxt, Color btncolor, Color txtcolor) {
+    return Container(
+        child: ElevatedButton(
+      onPressed: () {
+        _deleteDigit();
+      },
+      child: FaIcon(FontAwesomeIcons.deleteLeft),
+      style: ElevatedButton.styleFrom(
+        shape: CircleBorder(),
+        padding: EdgeInsets.all(19),
+        backgroundColor: Colors.red, // <-- Button color
+        foregroundColor: Colors.white, // <-- Splash color
+      ),
+    ));
   }
 
   void _deleteDigit() {
@@ -160,9 +194,46 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // Logica da HomePage
-  // calculos
-  void onButtonPressed(String btntxt) {}
+  //
+  void onButtonPressed(String btntxt) {
+    setState(() {
+      if (btntxt == 'C') {
+        _clearScreen();
+      } else if (btntxt == '+' || btntxt == '-' || btntxt == 'x' || btntxt == '÷') {
+        _operation = btntxt;
+        _operand1 = double.parse(_displayValue);
+        _displayValue = '';
+      } else if (btntxt == '=') {
+        _operand2 = double.parse(_displayValue);
+       // _displayValue = _calculate()!;
+        _operation = '';
+        _operand1 = 0;
+        _operand2 = 0;
+      } else {
+        _displayValue += btntxt;
+      }
+    });
+  }
+
+  //TODO clear button
+  Widget clearButton(String btntxt) {
+    return Container(
+      child: ElevatedButton(
+          onPressed: () {
+            _clearScreen();
+          },
+          child: Text(
+          btntxt,
+          style: TextStyle(fontSize: 28, color: Colors.white),
+        ),
+        style: ElevatedButton.styleFrom(
+          shape: CircleBorder(),
+          backgroundColor: Colors.red,
+          padding: EdgeInsets.all(16),
+        ),
+          ),
+    );
+  }
 
   void _clearScreen() {
     setState(() {
@@ -173,3 +244,4 @@ class _HomePageState extends State<HomePage> {
     });
   }
 }
+// TODO thaks for watching 
